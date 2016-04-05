@@ -2,7 +2,7 @@ pub fn hello_world() {
     println!(" ☀️");
     println!("\n\n\n");
     println!("   🌔");
-    println!("");
+    println!(" ");
     println!("🚀🚀🚀🚀🚀🚀🚀");
 }
 
@@ -19,4 +19,4 @@ fn it_works() {
 #[test]
 fn emoji() {
     emojis();
-}
+ }
