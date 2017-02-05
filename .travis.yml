@@ -1,13 +1,5 @@
 language: rust
 cache: cargo
-sudo: required
-dist: trusty
-addons:
-  apt:
-    packages:
-      - libcurl4-openssl-dev
-      - libelf-dev
-      - libdw-dev
 
 rust:
   - stable
@@ -16,29 +8,14 @@ rust:
 
 before_script:
   - |
-      pip install 'travis-cargo<0.2' --user &&
-      cargo uninstall semantic-rs ;
-      cargo install --git https://github.com/semantic-rs/semantic-rs --debug &&
-      export PATH=$HOME/.cargo/bin:$PATH &&
-      export RUST_BACKTRACE=1 &&
-      git config --global user.name semantic-rs &&
-      git config --global user.email semantic@rs
+      cargo install --force --git https://github.com/badboy/travis-after-all-rs
 
 script:
   - |
-      travis-cargo build &&
-      travis-cargo test &&
-      travis-cargo --only stable doc
+      true
 
 after_success:
-  - |
-      RUST_LOG=debug semantic-rs
-
-env:
-  global:
-    - TRAVIS_CARGO_NIGHTLY_FEATURE=""
-    - secure: "XdnQbEnt96pNeCt4ws2BLLui3zWFD3SBViJJ/gh3nP5M1Q6ci+JpRddYHX0zVFMUzcg5jhL/bcnzBoJunDk4MONNpS5ydDCFeDs7QW34pTHj/7FGhqpiC1xxV9N7PWu8OTu33Fr5ICNehwSMRrpm8ELvzMOODvzcnr1tUD48EaDAiXPeXbMvn4kIrQnRZVbGPvQ/E6v9F6UXFCmzi8xX55dV1Sty0N7rbsuX72IASBUCoxcn9tpIvRaHkKyo7av8vauK3MgORxaZv5rdXeqSPyUjtuwVEwsA2UziojQQ1rpfqDqfwJ3rbTPmoABgZk/QZz8Z6qYHDXYmqMYIuDTqgs46SiO+Y3Js32ghCDe/zxHi8C9zdJ3QE94bMpvBYwOVnZiKgfthcHz3m3qrH/E/r0KBlR0jb9DBzY4PyNeTZHojB8FZa1qo5K3S7YnUTme92Jc5G4mFzk+NKAopOVPq6dHsyYvoMl2GOgWxdNbRHaUpM52ye767y1LIHA8aciod7Bt43U4Q/SI+Gfbb/ZJiHhw8UuOt18uRq/GxI0gQrNo7Ph04BFhVBHHXtZG1PxSQrXBQAYSlodAFX1H+X/LB6UAzxa44iZBfjOMxDGUGcEpW7ip6tzolmmxVx1E5o4aZGrnS10O4wIuO6xSy1sXPknII/ysgomf+6nyqeDqsNDA="
-    - secure: "AV3xIl1YVJk6zt8Q0q9JrfPw1HIMHHy+KVgGATyISNxm7VctsnQ+k4B6Jm9R9P3acUpL6M0BNlzUict30pl/DkLacvZH684yUR127WNRUluj6hNarzj3mzMXosyVS0H6Qb/xVJojXbvHKkzZgx370vr9B4A+ghF9+Q6JUwmYi/n474XPwSLoX0xEAat0AeRDVPh5IPWJfe8nxDBPDi76wMWQ11Ng9wvTXbCPIwZ8UFE7fyz/9DNMP03doXpGnmhO5ZTTmJkpkJ093GZy1yRRlFh97Hc6ByqBKV3izJjAeDgAgMMeGdfqN7miv9Q/sNnjars9SivZ8JngOuc92/s/B4Yf/OaC48po4p+BKqISeI/jfVUeFXsErl/5rR1uyooq9JcBVBQQNpeCrerT8CdBkc5yoRD1JeNCPCDN0GDrlAdnHYbfGvI3sprXHDQ6es8oYVGUaMJBxwhAIfyvVSWQOlLx+5SiDyishf/oLMtK0n/BKLqBvpEJ/3h7Dg+ZjPNgWELir/4CLQ0831AfBQF+lK5RLIbA+NY1/GWqgDEJ+ODSyUmJNs/7pimsRnV2mFoF1Jdw7Bdj/FmBswtcdK766TPR4fgj42CbaDg+cyxJCWXghiHAX5/LxhC2sry/Bhxyh/k59F59iLNiAWyzHCvjzLa/9x3VgNLZK32rdAz1/Z4="
+  - /home/travis/.cargo/bin/travis-after-all && echo "All fine, let's publish"
 
 notifications:
   email: false
